@@ -1,20 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useVolunteers from '../../hooks/usevolunteers';
 import Activity from '../Activity/Activity';
 import './Main.css'
 
 const Main = () => {
-    const [volunteers, setVolunteers] = useVolunteers();
+    // const [volunteers, setVolunteers] = useVolunteers();
+    const [searchText, setSearchText] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
 
+    useEffect(() => {
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                const match = data.filter(d => d.title.includes(searchText));
+                setSearchResult(match);
+            })
+    }, [searchText]);
+
     const handleSearchChange = event => {
-        const searchText = event.target.value;
-        const match = volunteers.filter(v => v.title.includes(searchText));
-        setSearchResult(match);
+        setSearchText(event.target.value);
     }
+
+    // const handleSearchChange = event => {
+    //     const searchText = event.target.value;
+    //     const match = volunteers.filter(v => v.title.includes(searchText));
+    //     setSearchResult(match);
+    // }
     return (
         <div>
-            <h2>Volunteers activities: {volunteers.length}</h2>
+            <h2>Volunteers activities: {searchResult.length}</h2>
             <div style={{ margin: '20px' }}>
                 <input onChange={handleSearchChange} type="text" placeholder='Search' />
             </div>
