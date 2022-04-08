@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return (
         <div>
-
+            <h2>ami bhalo achi</h2>
         </div>
     );
 };
