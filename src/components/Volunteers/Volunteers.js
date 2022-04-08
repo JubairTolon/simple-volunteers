@@ -6,7 +6,7 @@ const Volunteers = () => {
     const [volunteers, setVolunteers] = useVolunteers();
     return (
         <div>
-            <h2>All volunteers: {volunteers.length}</h2>
+            <h2>All volunteers</h2>
             <div className="activity-container">
                 {
                     volunteers.map(activity => <Activity
